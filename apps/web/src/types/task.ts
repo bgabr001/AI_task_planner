@@ -6,7 +6,7 @@ export type Task = {
     deadline: string;      // ISO date string representing the task deadline
     effort: number;         //1-5 scale representing the effort required
     impact: number;       // 1-5 importance/value
-    createAt: string;    //ISO timestamp
+    createdAt: string;    //ISO timestamp
 };
 
-export type NewTaskInput = Omit<Task, 'id' | 'createAt'>;
+export type NewTaskInput = Omit<Task, 'id' | 'createdAt'>;
