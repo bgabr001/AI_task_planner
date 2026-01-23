@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NewTaskInput } from "@/types/task";
+import type { NewTaskInput, Urgency } from "@/types/task";
 import { validateNewTask } from "@/types/taskValidation";
 
 type Props = {
@@ -14,6 +14,7 @@ export default function TaskForm({ onAddTask }: Props) {
   const [effort, setEffort] = useState(3);
   const [impact, setImpact] = useState(3);
   const [errors, setErrors] = useState<string[]>([]);
+  const [urgency, setUrgency] = useState<Urgency>("medium");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,6 +24,7 @@ export default function TaskForm({ onAddTask }: Props) {
       deadline,
       effort,
       impact,
+      urgency,
     };
 
     const validationErrors = validateNewTask(newTask);
@@ -39,6 +41,7 @@ export default function TaskForm({ onAddTask }: Props) {
     setEffort(3);
     setImpact(3);
     setErrors([]);
+    setUrgency("medium");
   }
 
   return (
@@ -104,6 +107,21 @@ export default function TaskForm({ onAddTask }: Props) {
           />
         </div>
       </div>
+
+      <div>
+        <label className="block text-sm font-medium">Urgency</label>
+        <select
+          className="w-full rounded border px-2 py-1"
+          value={urgency}
+          onChange={(e) => setUrgency(e.target.value as Urgency)}
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+
 
       <button
         type="submit"
